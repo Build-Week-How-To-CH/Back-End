@@ -5,7 +5,7 @@ exports.up = function (knex) {
 
       tbl.string("username", 155).notNullable().unique().index();
       tbl.string("password", 155).notNullable();
-      tbl.boolean("isAdmin").defaultTo(false);
+      tbl.boolean("isAdmin").notNullable().defaultTo(false);
     })
     .createTable("howtos", (tbl) => {
       tbl.increments("id");

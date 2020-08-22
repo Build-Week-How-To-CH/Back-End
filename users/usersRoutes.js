@@ -74,4 +74,18 @@ router.delete("/:id", validateUserId, (req, res) => {
     });
 });
 
+// extra endpoints
+
+router.get("/:id/howtos", validateUserId, (req, res) => {
+  const id = req.params.id;
+
+  Users.getUserHowtos(id)
+    .then((howtos) => {
+      res.status(200).json({ howtos });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 module.exports = router;

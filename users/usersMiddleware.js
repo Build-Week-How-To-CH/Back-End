@@ -14,7 +14,7 @@ function validateUserId(req, res, next) {
         req.user = user;
         next();
       } else {
-        req.status(404).json({ error: `User with id ${id} does not exist` });
+        res.status(404).json({ error: `User with id ${id} does not exist` });
       }
     })
     .catch((err) => {
@@ -23,12 +23,12 @@ function validateUserId(req, res, next) {
 }
 
 function validateUser(req, res, next) {
-  const { username, password } = req.body;
+  const { username, password, isAdmin } = req.body;
 
-  if (!username || !password) {
+  if (!username || !password || isAdmin === null || isAdmin === undefined) {
     res
       .status(400)
-      .json({ error: "Please provide required username and password" });
+      .json({ error: "Please provide required username, password, isAdmin" });
   } else {
     next();
   }

@@ -15,6 +15,7 @@ function getAll() {
       "h.id",
       "h.title",
       "u.username as author",
+      "h.user_id",
       "h.category",
       "h.content"
     );
@@ -27,6 +28,7 @@ function getById(id) {
       "h.id",
       "h.title",
       "u.username as author",
+      "h.user_id",
       "h.category",
       "h.content"
     )

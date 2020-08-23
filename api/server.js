@@ -4,6 +4,7 @@ const helmet = require("helmet");
 
 const usersRoutes = require("../users/usersRoutes");
 const authRoutes = require("../auth/authRoutes");
+const howtosRoutes = require("../howtos/howtosRoutes");
 
 const {
   requiresToken,
@@ -18,5 +19,6 @@ server.use(express.json());
 
 server.use("/api/users", requiresToken, requiresAdmin, usersRoutes);
 server.use("/api/auth", authRoutes);
+server.use("/api/howtos", howtosRoutes);
 
 module.exports = server;

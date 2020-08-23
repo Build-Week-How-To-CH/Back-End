@@ -26,7 +26,13 @@ function getUserHowtos(id) {
   return db("users as u")
     .join("howtos as h", "u.id", "h.user_id")
     .where({ "h.user_id": id })
-    .select("h.title", "u.username as author", "h.category", "h.content");
+    .select(
+      "h.title",
+      "u.username as author",
+      "h.user_id",
+      "h.category",
+      "h.content"
+    );
 }
 
 function add(user) {

@@ -28,4 +28,36 @@ router.post("/", validateHowto, (req, res) => {
     });
 });
 
+router.put("/:id", validateHowtoId, validateHowto, (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+
+  Howtos.update(id, changes)
+    .then((howto) => {
+      res
+        .status(200)
+        .json({ message: `Howto with id ${id} successfully updated`, howto });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.delete("/:id", validateHowtoId, (req, res) => {
+  const id = req.params.id;
+
+  Howtos.remove(id)
+    .then((deletedHowto) => {
+      res
+        .status(200)
+        .json({
+          message: `Howto with id ${id} deleted successfully`,
+          deletedHowto,
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 module.exports = router;

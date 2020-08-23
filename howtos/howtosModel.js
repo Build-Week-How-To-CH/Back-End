@@ -4,8 +4,8 @@ module.exports = {
   getAll,
   getById,
   add,
-  // update,
-  // remove,
+  update,
+  remove,
 };
 
 function getAll() {
@@ -40,5 +40,29 @@ function add(howto) {
     .returning("id")
     .then(([id]) => {
       return getById(id);
+    });
+}
+
+function update(id, changes) {
+  return db("howtos")
+    .where({ id })
+    .update(changes)
+    .then(() => {
+      return getById(id);
+    });
+}
+
+function remove(id) {
+  let removedHowto = null;
+
+  getById(id).then((howto) => {
+    removedHowto = howto;
+  });
+
+  return db("howtos")
+    .where({ id })
+    .del()
+    .then(() => {
+      return removedHowto;
     });
 }

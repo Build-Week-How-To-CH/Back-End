@@ -2,8 +2,8 @@ const express = require('express');
 const helmet = require('helmet');
 
 //Router import here
-// const authRouter = require('filepathtorouter.js');
-// const howRouter = require('filepathtorouter.js');
+const authRouter = require('../auth/auth-router');
+// const howRouter = require('../howTo/howTo-router');
 
 //Global Middleware here
 const server = express();
@@ -15,7 +15,7 @@ server.get('/', (req, res) => {
     res.send(`<h2> How-To API is UP! </h2>`)   
 })
 
-// server.use('/api/auth', authRouter);
+server.use('/api/auth', authRouter);
 // server.use('/api/howto', atuhenticate, howToRouter);
 
 module.exports = server;

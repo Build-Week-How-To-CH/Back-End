@@ -9,6 +9,7 @@ module.exports = {
 async function add(user){
     return db('users')
     .insert(user)
+    .returning("id")
     .then(ids => {
         const id = ids[0]
         return findById(id)

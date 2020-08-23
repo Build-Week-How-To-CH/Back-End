@@ -2,10 +2,11 @@ const router = require("express").Router();
 const Users = require("./usersModel");
 const bcrypt = require("bcryptjs");
 const { validateUser, validateUserId } = require("./usersMiddleware");
+const { requiresAdmin } = require("../restricted/restrictedMiddleware");
 
 // basic CRUD
 
-router.get("/", (req, res) => {
+router.get("/", requiresAdmin, (req, res) => {
   Users.getAll()
     .then((users) => {
       res.status(200).json({ users });
@@ -15,11 +16,11 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", validateUserId, (req, res) => {
+router.get("/:id", requiresAdmin, validateUserId, (req, res) => {
   res.status(200).json({ user: req.user });
 });
 
-router.post("/", validateUser, (req, res) => {
+router.post("/", requiresAdmin, validateUser, (req, res) => {
   const { username, password, isAdmin } = req.body;
 
   Users.getBy({ username })
@@ -44,7 +45,7 @@ router.post("/", validateUser, (req, res) => {
     });
 });
 
-router.put("/:id", validateUserId, validateUser, (req, res) => {
+router.put("/:id", requiresAdmin, validateUserId, validateUser, (req, res) => {
   const id = req.params.id;
   const changes = req.body;
 
@@ -59,7 +60,7 @@ router.put("/:id", validateUserId, validateUser, (req, res) => {
     });
 });
 
-router.delete("/:id", validateUserId, (req, res) => {
+router.delete("/:id", requiresAdmin, validateUserId, (req, res) => {
   const id = req.params.id;
 
   Users.remove(id)

@@ -48,8 +48,12 @@ router.post("/", requiresAdmin, validateUser, (req, res) => {
 router.put("/:id", requiresAdmin, validateUserId, validateUser, (req, res) => {
   const id = req.params.id;
   const changes = req.body;
+  const password = req.body.password;
 
-  Users.update(id, changes)
+  const rounds = parseInt(process.env.HASH_ROUNDS) || 8;
+  const hash = bcrypt.hashSync(password, rounds);
+
+  Users.update(id, { ...changes, password: hash })
     .then((user) => {
       res
         .status(200)

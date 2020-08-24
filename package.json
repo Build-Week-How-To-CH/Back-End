@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Build-Week-How-To-CH/Back-End#readme",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"

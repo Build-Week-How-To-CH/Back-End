@@ -33,7 +33,7 @@ function getUserHowtos(id) {
       "h.category",
       "h.content"
     )
-    .orderBy("id");
+    .orderBy("h.id");
 }
 
 function add(user) {

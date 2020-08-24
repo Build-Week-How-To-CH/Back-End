@@ -2,7 +2,8 @@ const db = require('../data/db config');
 
 module.exports = {
     find,
-    findBy,
+    // findBy,
+    findByUser,
     findById,
     add,
     update,
@@ -15,11 +16,20 @@ function find(){
         .select('a.*', 'b.username');
 }
 
-function findBy(filter){
+//not working yet
+// function findBy(filter){
+//     return db('posts as a')
+//     .join('users as b', 'a.user_id', '=', 'b.id')
+//     .select('a.*', 'b.username')
+//     .where(filter)
+//     .orderBy("id");
+// }
+
+function findByUser(userId){
     return db('posts as a')
     .join('users as b', 'a.user_id', '=', 'b.id')
     .select('a.*', 'b.username')
-    .where(filter)
+    .where({ 'a.id': userId })
     .orderBy("id");
 }
 
@@ -27,12 +37,12 @@ function findById(id){
     return db('posts as a')
     .join('users as b', 'a.user_id', '=', 'b.id')
     .select('a.*', 'b.username')
-    .where({ id }).first();
+    .where({ 'a.id': id }).first();
 }
 
-async function add(user){
+async function add(post){
     return db('posts')
-    .insert(user)
+    .insert(post)
     .returning('id')
     .then(ids => {
         const id = ids[0]
@@ -45,7 +55,7 @@ function update(changes, id){
     .where({ id })
     .update(changes)
     .then(() => {
-        return findById()
+        return findById(id)
     });
 }
 

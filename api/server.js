@@ -3,10 +3,11 @@ const helmet = require('helmet');
 
 //Router import here
 const authRouter = require('../auth/auth-router');
-// const howRouter = require('../howTo/howTo-router');
+const howToRouter = require('../howTo/how-to-router');
 
 //Global Middleware here
 const server = express();
+const authenticate = require('../auth/authenticate-mw')
 
 server.use(helmet());
 server.use(express.json());
@@ -16,7 +17,7 @@ server.get('/', (req, res) => {
 })
 
 server.use('/api/auth', authRouter);
-// server.use('/api/howto', authenticate, howToRouter);
+server.use('/api/howto', authenticate, howToRouter);
 
 module.exports = server;
 

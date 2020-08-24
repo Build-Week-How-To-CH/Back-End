@@ -19,7 +19,7 @@ function getAll() {
       "h.category",
       "h.content"
     )
-    .orderBy("id");
+    .orderBy("h.id");
 }
 
 function getById(id) {

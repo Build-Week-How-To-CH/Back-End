@@ -29,7 +29,7 @@ function findByUser(userId){
     return db('posts as a')
     .join('users as b', 'a.user_id', '=', 'b.id')
     .select('a.*', 'b.username')
-    .where({ 'a.id': userId })
+    .where({ 'a.user_id': userId })
     .orderBy("id");
 }
 

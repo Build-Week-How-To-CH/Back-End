@@ -2,6 +2,7 @@ const db = require('../data/db config');
 
 module.exports = {
     add,
+    find,
     findBy,
     findById
 }
@@ -14,6 +15,10 @@ async function add(user){
         const id = ids[0]
         return findById(id)
     });
+}
+
+function find(){
+    return db('users').orderBy("id")
 }
 
 function findBy(filter){

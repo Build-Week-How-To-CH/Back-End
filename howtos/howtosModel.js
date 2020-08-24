@@ -18,7 +18,8 @@ function getAll() {
       "h.user_id",
       "h.category",
       "h.content"
-    );
+    )
+    .orderBy("id");
 }
 
 function getById(id) {

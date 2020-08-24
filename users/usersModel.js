@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function getAll() {
-  return db("users");
+  return db("users").orderBy("id");
 }
 
 function getById(id) {
@@ -32,7 +32,8 @@ function getUserHowtos(id) {
       "h.user_id",
       "h.category",
       "h.content"
-    );
+    )
+    .orderBy("id");
 }
 
 function add(user) {

@@ -17,6 +17,7 @@ server.get('/', (req, res) => {
     res.send(`<h2> How-To API is UP! </h2>`)   
 })
 
+//Routes here
 server.use('/api/auth', authRouter);
 server.use('/api/users', authenticate, userRouter);
 server.use('/api/howto', authenticate, howToRouter);

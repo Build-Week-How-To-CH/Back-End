@@ -1,8 +1,7 @@
-const db = require('../data/db config');
+const db = require('../data/dbConfig');
 
 module.exports = {
     find,
-    // findBy,
     findByUser,
     findById,
     add,
@@ -15,15 +14,6 @@ function find(){
         .join('users as b', 'a.user_id', '=', 'b.id')
         .select('a.*', 'b.username');
 }
-
-//not working yet
-// function findBy(filter){
-//     return db('posts as a')
-//     .join('users as b', 'a.user_id', '=', 'b.id')
-//     .select('a.*', 'b.username')
-//     .where(filter)
-//     .orderBy("id");
-// }
 
 function findByUser(userId){
     return db('posts as a')

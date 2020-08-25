@@ -7,7 +7,7 @@ https://how-to-app-kf.herokuapp.com/
 
 ## Getting Started
 1) Clone this repository
-2) `npm i from root directory`
+2) `npm i` from root directory
 3) `npm run server` to run server locally
 
 

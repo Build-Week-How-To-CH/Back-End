@@ -52,4 +52,4 @@ The API handles the following routes:
 
 ## Database Schema
 
-[![Database Schema](Bw_HowTo_schema.png)]
+![Database Schema](Bw_HowTo_schema.png)

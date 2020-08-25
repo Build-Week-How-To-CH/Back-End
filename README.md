@@ -1,6 +1,16 @@
 # How-To: Back-End
 This is a **seperate alternative** API from the one in **Master** Branch
 
+## Deployed backend url
+
+https://how-to-app-kf.herokuapp.com/
+
+## Getting Started
+1) Clone this repository
+2) `npm i from root directory`
+3) `npm run server` to run server locally
+
+
 ## Database Schemas
 
 The _Database Schemas_ for the `users` and `posts` resources are:
@@ -39,3 +49,7 @@ The API handles the following routes:
 | PUT    | /api/howto/:id          | Updates the post with the specified `id` using data from the `request body`. Returns the modified post.                                                                     | YES            |
 | DELETE | /api/howto/:id          | Removes the post with the specified `id`.                                                                                                                                   | YES            |
 
+
+## Database Schema
+
+[![Database Schema](Bw_HowTo_schema.png)]

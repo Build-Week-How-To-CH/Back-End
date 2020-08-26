@@ -15,31 +15,25 @@ describe("users router", () => {
             username:"user2",
             password:"pass"
         });
+
+        await request(server)
+        .post("/api/auth/login").send({
+            username:"user1",
+            password:"pass"
+        })
+        .then(res => {
+            token = res.body.token
+        })
     });
 
 
     describe("GET /users", () => {
         it("should return a list of users", async () => {
             await request(server)
-            .post("/api/auth/register").send({
-            username:"jest25",
-            password:"hashedpass"
-            })
-
-            await request(server)
-            .post("/api/auth/login").send({
-                username:"jest25",
-                password:"hashedpass"
-            })
-            .then(res => {
-                token = res.body.token
-            })
-
-            await request(server)
             .get("/api/users")
             .set('Authorization', token)
             .then(res => {
-                expect(res.body).toHaveLength(3);
+                expect(res.body).toHaveLength(2);
             })
         })
         it("should send a 401", async () => {
@@ -49,15 +43,6 @@ describe("users router", () => {
             })
         })
         it("should send a 200", async () => {
-            await request(server)
-            .post("/api/auth/login").send({
-                username:"user2",
-                password:"pass"
-            })
-            .then(res => {
-                token = res.body.token
-            })
-
             await request(server)
             .get("/api/users")
             .set('Authorization', token)
@@ -75,15 +60,6 @@ describe("users router", () => {
     describe("GET /users/:id", () => {
         it("should return a single user", async () => {
             await request(server)
-            .post("/api/auth/login").send({
-                username:"user2",
-                password:"pass"
-            })
-            .then(res => {
-                token = res.body.token
-            })
-
-            await request(server)
             .get("/api/users/2")
             .set('Authorization', token)
             .then(res => {
@@ -91,15 +67,6 @@ describe("users router", () => {
             })
         })
         it("should return the correct id", async () => {
-            await request(server)
-            .post("/api/auth/login").send({
-                username:"user2",
-                password:"pass"
-            })
-            .then(res => {
-                token = res.body.token
-            })
-
             await request(server)
             .get("/api/users/2")
             .set('Authorization', token)
@@ -116,15 +83,6 @@ describe("users router", () => {
         })
         it("should send a 200", async () => {
             await request(server)
-            .post("/api/auth/login").send({
-                username:"user2",
-                password:"pass"
-            })
-            .then(res => {
-                token = res.body.token
-            })
-
-            await request(server)
             .get("/api/users/2")
             .set('Authorization', token)
             .then(res => {
@@ -132,15 +90,6 @@ describe("users router", () => {
             })
         })
         it("should send json", async () => {
-            await request(server)
-            .post("/api/auth/login").send({
-                username:"user2",
-                password:"pass"
-            })
-            .then(res => {
-                token = res.body.token
-            })
-
             await request(server)
             .get("/api/users/2")
             .set('Authorization', token)

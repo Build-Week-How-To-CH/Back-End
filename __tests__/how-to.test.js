@@ -46,30 +46,61 @@ describe("how-to router", () => {
         
     })
 
-    // describe("GET /howto", () => {
-    //     it("should send a 401", async () => {
-    //         await request(server).get("/api/howto")
-    //         .then(res => {
-    //             expect(res.status).toBe(401);
-    //         })
-    //     })
-    // })
-    // describe("GET /howto/:id", () => {
-    //     it("should send a 401", async () => {
-    //         await request(server).get("/api/howto/2")
-    //         .then(res => {
-    //             expect(res.status).toBe(401);
-    //         })
-    //     })
-    // })
-    // describe("GET /howto/user/:id", () => {
-    //     it("should send a 401", async () => {
-    //         await request(server).get("/api/howto/2")
-    //         .then(res => {
-    //             expect(res.status).toBe(401);
-    //         })
-    //     })
-    // })
+
+    describe("GET /howto", () => {
+        it("should send a list of how to posts", async () => {
+            await request(server).get("/api/howto")
+            .set('Authorization', token)
+            .then(res => {
+                expect(res.body).toHaveLength(2);
+            })
+        })
+        it("should send a 401", async () => {
+            await request(server).get("/api/howto")
+            .then(res => {
+                expect(res.status).toBe(401);
+            })
+        })
+    })
+    describe("GET /howto/:id", () => {
+        it("should send a single how to post with given id", async () => {
+            await request(server).get("/api/howto/2")
+            .set('Authorization', token)
+            .then(res => {
+                expect([res.body]).toHaveLength(1);
+            })
+        })
+        it("should send a 401", async () => {
+            await request(server).get("/api/howto/2")
+            .then(res => {
+                expect(res.status).toBe(401);
+            })
+        })
+    })
+    describe("GET /howto/user/:id", () => {
+        it("should send a list of how to posts based on user id", async () => {
+            await request(server)
+            .post("/api/howto").send(
+            {
+                user_id: 2,
+                title:"post3",
+                contents:"dummy post3"
+            })
+            .set('Authorization', token)
+
+            await request(server).get("/api/howto/user/2")
+            .set('Authorization', token)
+            .then(res => {
+                expect(res.body).toHaveLength(2);
+            })
+        })
+        it("should send a 401", async () => {
+            await request(server).get("/api/howto/2")
+            .then(res => {
+                expect(res.status).toBe(401);
+            })
+        })
+    })
     describe("POST /howto", () => {
         it("should post a new how-to", async () => {
             await request(server)

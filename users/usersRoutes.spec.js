@@ -2,12 +2,17 @@ const request = require("supertest");
 const server = require("../api/server");
 const db = require("../data/dbConfig");
 
-describe("user routes", () => {
-  beforeEach(async () => {
-    await db("howtos").truncate();
-    await db("users").truncate();
-  });
+beforeEach(async () => {
+  await db("howtos").truncate();
+  await db("users").truncate();
+});
 
+afterEach(async () => {
+  await db("howtos").truncate();
+  await db("users").truncate();
+});
+
+describe("user routes", () => {
   describe("GET /users", () => {
     it("should get a list of users", async () => {
       let res = await request(server)

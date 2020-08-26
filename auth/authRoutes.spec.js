@@ -2,12 +2,17 @@ const request = require("supertest");
 const server = require("../api/server");
 const db = require("../data/dbConfig");
 
-describe("auth routes", () => {
-  beforeEach(async () => {
-    await db("howtos").truncate();
-    await db("users").truncate();
-  });
+beforeEach(async () => {
+  await db("howtos").truncate();
+  await db("users").truncate();
+});
 
+afterEach(async () => {
+  await db("howtos").truncate();
+  await db("users").truncate();
+});
+
+describe("auth routes", () => {
   describe("POST /register", () => {
     it("should add a new user", async () => {
       let users = await db("users");
@@ -61,6 +66,7 @@ describe("auth routes", () => {
         .post("/api/auth/register")
         .send({ username: "christian", password: "testing", isAdmin: true });
 
+      expect(res.body).toBeDefined();
       expect(res.body.error).toMatch(/taken/i);
       expect(res.status).toBe(409);
 
